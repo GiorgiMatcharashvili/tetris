@@ -179,17 +179,20 @@ class Shape:
 
 
     def move(self,direction):
-        if direction == "right":
-            future_coordinates = [(self.cc[0][0]+1,self.cc[0][1]),(self.cc[1][0]+1,self.cc[1][1]),
-                                  (self.cc[2][0]+1,self.cc[2][1]),(self.cc[3][0]+1,self.cc[3][1])]
-        elif direction == "left":
-            future_coordinates = [(self.cc[0][0] - 1, self.cc[0][1]), (self.cc[1][0] - 1, self.cc[1][1]),
-                                  (self.cc[2][0] - 1, self.cc[2][1]), (self.cc[3][0] - 1, self.cc[3][1])]
-        elif direction == "down":
-            future_coordinates = [(self.cc[0][0], self.cc[0][1]+1), (self.cc[1][0], self.cc[1][1]+1),
-                                  (self.cc[2][0], self.cc[2][1]+1), (self.cc[3][0], self.cc[3][1]+1)]
-        elif direction == "rotate":
-            future_coordinates = self.rotate_coordinates()
+        try:
+            if direction == "right":
+                future_coordinates = [(self.cc[0][0]+1,self.cc[0][1]),(self.cc[1][0]+1,self.cc[1][1]),
+                                      (self.cc[2][0]+1,self.cc[2][1]),(self.cc[3][0]+1,self.cc[3][1])]
+            elif direction == "left":
+                future_coordinates = [(self.cc[0][0] - 1, self.cc[0][1]), (self.cc[1][0] - 1, self.cc[1][1]),
+                                      (self.cc[2][0] - 1, self.cc[2][1]), (self.cc[3][0] - 1, self.cc[3][1])]
+            elif direction == "down":
+                future_coordinates = [(self.cc[0][0], self.cc[0][1]+1), (self.cc[1][0], self.cc[1][1]+1),
+                                      (self.cc[2][0], self.cc[2][1]+1), (self.cc[3][0], self.cc[3][1]+1)]
+            elif direction == "rotate":
+                future_coordinates = self.rotate_coordinates()
+        except:
+            self.move(direction)
 
         try:
             if not self.is_occupied(future_coordinates):
