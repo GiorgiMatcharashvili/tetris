@@ -16,6 +16,8 @@ BACKGROUND_COLOR = (255,255,255)
 
 SHAPES = ["0","I","S","Z","L","J","T"]
 
+SCORE = 0
+
 ########################################################################################################################
 ##################################################### Classes  #########################################################
 ########################################################################################################################
@@ -279,6 +281,7 @@ def clear_line(line):
                 occupied_coordinates.remove((x,y))
 
 def check_for_full_lines():
+    global SCORE
     line = []
     for y in range(0,20):
         count = 0
@@ -291,6 +294,7 @@ def check_for_full_lines():
 
         if count == 10:
             clear_line(line)
+            SCORE += 40
         line.clear()
 
 
@@ -298,6 +302,8 @@ def check_for_full_lines():
 ########################################################################################################################
 ####################################################### Flow ###########################################################
 ########################################################################################################################
+
+pygame.init()
 
 occupied_coordinates = set()
 
@@ -319,10 +325,17 @@ screen = drawWindow(300,500)
 
 figure = ""
 last_event = ""
+green = (0, 255, 0)
+font = pygame.font.Font('freesansbold.ttf', 32)
 
 running = True
 
 while running:
+    text = font.render('Score: '+str(SCORE), True, green, BACKGROUND_COLOR)
+
+    textRect = text.get_rect()
+    textRect.center = (200, 50)
+    screen.blit(text, textRect)
     try:
         if figure == "" or figure.is_disabled:
             figure = Shape(choice(SHAPES), 5, 5, choice(COLORS))
